@@ -92,3 +92,8 @@ Temporary Items
 bin/
 pkg/
 maxwell.txt
+
+
+# intellji
+.idea/
+binlog-parser.iml
