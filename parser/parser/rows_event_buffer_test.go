@@ -5,7 +5,7 @@ package parser
 import (
 	"reflect"
 	"testing"
-	"zalora/binlog-parser/parser/conversion"
+	"github.com/oprstchn/binlog-parser/parser/conversion"
 )
 
 func TestRowsEventBuffer(t *testing.T) {

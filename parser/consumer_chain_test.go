@@ -7,7 +7,7 @@ import (
 	"os"
 	"testing"
 	"time"
-	"zalora/binlog-parser/parser/messages"
+	"github.com/oprstchn/binlog-parser/parser/messages"
 )
 
 func TestConsumerChain(t *testing.T) {

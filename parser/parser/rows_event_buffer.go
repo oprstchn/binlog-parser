@@ -1,7 +1,7 @@
 package parser
 
 import (
-	"zalora/binlog-parser/parser/conversion"
+	"github.com/oprstchn/binlog-parser/parser/conversion"
 )
 
 type RowsEventBuffer struct {

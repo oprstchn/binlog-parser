@@ -8,8 +8,8 @@ import (
 	"reflect"
 	"testing"
 	"time"
-	"zalora/binlog-parser/database"
-	"zalora/binlog-parser/parser/messages"
+	"github.com/oprstchn/binlog-parser/database"
+	"github.com/oprstchn/binlog-parser/parser/messages"
 )
 
 func TestConvertQueryEventToMessage(t *testing.T) {

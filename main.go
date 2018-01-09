@@ -7,7 +7,7 @@ import (
 	"os"
 	"path"
 	"strings"
-	"zalora/binlog-parser/parser"
+	"github.com/oprstchn/binlog-parser/parser"
 )
 
 var prettyPrintJsonFlag = flag.Bool("prettyprint", false, "Pretty print json")

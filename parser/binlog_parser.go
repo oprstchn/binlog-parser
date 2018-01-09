@@ -2,8 +2,8 @@ package parser
 
 import (
 	"os"
-	"zalora/binlog-parser/database"
-	"zalora/binlog-parser/parser/parser"
+	"github.com/oprstchn/binlog-parser/database"
+	"github.com/oprstchn/binlog-parser/parser/parser"
 )
 
 func ParseBinlog(binlogFilename string, tableMap database.TableMap, consumerChain ConsumerChain) error {

@@ -4,8 +4,8 @@ import (
 	"github.com/golang/glog"
 	"github.com/siddontang/go-mysql/replication"
 	"time"
-	"zalora/binlog-parser/database"
-	"zalora/binlog-parser/parser/messages"
+	"github.com/oprstchn/binlog-parser/database"
+	"github.com/oprstchn/binlog-parser/parser/messages"
 )
 
 type RowsEventData struct {

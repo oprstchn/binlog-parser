@@ -4,9 +4,9 @@ import (
 	"github.com/golang/glog"
 	"github.com/siddontang/go-mysql/replication"
 	"strings"
-	"zalora/binlog-parser/database"
-	"zalora/binlog-parser/parser/conversion"
-	"zalora/binlog-parser/parser/messages"
+	"github.com/oprstchn/binlog-parser/database"
+	"github.com/oprstchn/binlog-parser/parser/conversion"
+	"github.com/oprstchn/binlog-parser/parser/messages"
 )
 
 type ConsumerFunc func(messages.Message) error

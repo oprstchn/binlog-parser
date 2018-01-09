@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"github.com/golang/glog"
 	"io"
-	"zalora/binlog-parser/parser/messages"
+	"github.com/oprstchn/binlog-parser/parser/messages"
 )
 
 type ConsumerChain struct {
