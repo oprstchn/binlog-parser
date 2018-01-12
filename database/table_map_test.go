@@ -9,22 +9,26 @@ import (
 	"testing"
 )
 
+
 func TestLookupTableMetadata(t *testing.T) {
-	db, _ := GetDatabaseInstance(os.Getenv("TEST_DB_DSN"))
+	const SCHEMA = "employess"
+	db, _ := GetDatabaseInstance(TEST_DB_DSN_STRING)
 	defer db.Close()
+	t.Log(db);
 
 	t.Run("Found", func(t *testing.T) {
 		tableMap := NewTableMap(db)
-		tableMap.Add(1, "test_db", "buildings")
-		tableMap.Add(2, "test_db", "rooms")
+		tableMap.Add(1, SCHEMA, "dept_emp")
+		tableMap.Add(2, SCHEMA, "employees")
 
-		assertTableMetadata(t, &tableMap, 1, "test_db", "buildings")
-		assertTableMetadata(t, &tableMap, 2, "test_db", "rooms")
+		assertTableMetadata(t, &tableMap, 1, SCHEMA, "dept_emp")
+		assertTableMetadata(t, &tableMap, 2, SCHEMA, "employees")
+		t.Log(tableMap)
 	})
 
 	t.Run("Fields", func(t *testing.T) {
 		tableMap := NewTableMap(db)
-		tableMap.Add(1, "test_db", "buildings")
+		tableMap.Add(1, SCHEMA, "buildings")
 
 		tableMetadata, ok := tableMap.LookupTableMetadata(1)
 
@@ -33,9 +37,10 @@ func TestLookupTableMetadata(t *testing.T) {
 		}
 
 		expectedFields := map[int]string{
-			0: "building_no",
-			1: "building_name",
-			2: "address",
+			0: "emp_no",
+			1: "dept_no",
+			2: "from_date",
+			3: "to_date",
 		}
 
 		if !reflect.DeepEqual(tableMetadata.Fields, expectedFields) {

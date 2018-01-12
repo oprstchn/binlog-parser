@@ -1,0 +1,9 @@
+FROM mysql:5.6
+
+# COPY test_db data
+COPY ./test_db /test_db
+COPY ./my.cnf /etc/mysql/conf.d/my.cnf
+COPY ./init_mysql /docker-entrypoint-initdb.d
+
+
+EXPOSE 3306
