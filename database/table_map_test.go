@@ -1,36 +1,43 @@
-// +build integration
-
 package database
 
 import (
 	"fmt"
-	"os"
 	"reflect"
 	"testing"
 )
 
+const (
+	Schema     = "employees"
+	TestTable1 = "dept_emp"
+	TestTable2 = "employees"
+)
 
 func TestLookupTableMetadata(t *testing.T) {
-	const SCHEMA = "employess"
 	db, _ := GetDatabaseInstance(TEST_DB_DSN_STRING)
 	defer db.Close()
-	t.Log(db);
 
 	t.Run("Found", func(t *testing.T) {
 		tableMap := NewTableMap(db)
-		tableMap.Add(1, SCHEMA, "dept_emp")
-		tableMap.Add(2, SCHEMA, "employees")
+		err := tableMap.Add(1, Schema, TestTable1)
+		if err != nil {
+			t.Fatal(err)
+		}
+		err = tableMap.Add(2, Schema, TestTable2)
+		if err != nil {
+			t.Fatal(err)
+		}
 
-		assertTableMetadata(t, &tableMap, 1, SCHEMA, "dept_emp")
-		assertTableMetadata(t, &tableMap, 2, SCHEMA, "employees")
+		assertTableMetadata(t, &tableMap, 1, Schema, TestTable1)
+		assertTableMetadata(t, &tableMap, 2, Schema, TestTable2)
 		t.Log(tableMap)
 	})
 
 	t.Run("Fields", func(t *testing.T) {
 		tableMap := NewTableMap(db)
-		tableMap.Add(1, SCHEMA, "buildings")
+		tableMap.Add(1, Schema, TestTable1)
 
 		tableMetadata, ok := tableMap.LookupTableMetadata(1)
+		t.Log(tableMetadata)
 
 		if ok != true {
 			t.Fatal("Expected table metadata to be found")

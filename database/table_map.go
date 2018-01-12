@@ -5,6 +5,11 @@ import (
 	"fmt"
 )
 
+const GetColumnsQuery = `
+	SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS
+	WHERE TABLE_SCHEMA = "%s" AND TABLE_NAME = "%s" ORDER BY ORDINAL_POSITION
+`
+
 type TableMetadata struct {
 	Schema string
 	Table  string
@@ -60,11 +65,8 @@ func (m *TableMap) getFields(schema, table string) (map[int]string, error) {
 }
 
 func getFieldsFromDb(db *sql.DB, schema string, table string) (map[int]string, error) {
-	rows, err := db.Query(
-		"SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = ? AND TABLE_NAME = ? ORDER BY ORDINAL_POSITION",
-		schema,
-		table,
-	)
+	query := fmt.Sprintf(GetColumnsQuery, schema, table)
+	rows, err := db.Query(query)
 
 	if err != nil {
 		q := newQueryError(err)
@@ -88,6 +90,5 @@ func getFieldsFromDb(db *sql.DB, schema string, table string) (map[int]string, e
 		fields[i] = columnName
 		i++
 	}
-
 	return fields, nil
 }
