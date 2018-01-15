@@ -1,5 +1,3 @@
-// +build unit
-
 package conversion
 
 import (

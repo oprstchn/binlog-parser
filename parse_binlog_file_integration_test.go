@@ -1,5 +1,3 @@
-// +build integration
-
 package binlog_parser
 
 import (
@@ -11,7 +9,7 @@ import (
 	"path/filepath"
 	"strings"
 	"testing"
-	"zalora/binlog-parser/parser"
+	"github.com/oprstchn/binlog-parser/parser"
 )
 
 func TestParseBinlogFile(t *testing.T) {
