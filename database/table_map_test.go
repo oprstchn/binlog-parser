@@ -7,9 +7,9 @@ import (
 )
 
 const (
-	Schema     = "employees"
-	TestTable1 = "dept_emp"
-	TestTable2 = "employees"
+	Schema     = "test_db"
+	TestTable1 = "iris"
+	//TestTable2 = "employees"
 )
 
 func TestLookupTableMetadata(t *testing.T) {
@@ -19,16 +19,18 @@ func TestLookupTableMetadata(t *testing.T) {
 	t.Run("Found", func(t *testing.T) {
 		tableMap := NewTableMap(db)
 		err := tableMap.Add(1, Schema, TestTable1)
-		if err != nil {
-			t.Fatal(err)
-		}
-		err = tableMap.Add(2, Schema, TestTable2)
+
 		if err != nil {
 			t.Fatal(err)
 		}
 
+		//err = tableMap.Add(2, Schema, TestTable2)
+		//if err != nil {
+		//	t.Fatal(err)
+		//}
+
 		assertTableMetadata(t, &tableMap, 1, Schema, TestTable1)
-		assertTableMetadata(t, &tableMap, 2, Schema, TestTable2)
+		//assertTableMetadata(t, &tableMap, 2, Schema, TestTable2)
 		t.Log(tableMap)
 	})
 
@@ -44,10 +46,12 @@ func TestLookupTableMetadata(t *testing.T) {
 		}
 
 		expectedFields := map[int]string{
-			0: "emp_no",
-			1: "dept_no",
-			2: "from_date",
-			3: "to_date",
+			0: "id",
+			1: "sepal_length",
+			2: "sepal_width",
+			3: "petal_length",
+			4: "petal_width",
+			5: "label",
 		}
 
 		if !reflect.DeepEqual(tableMetadata.Fields, expectedFields) {

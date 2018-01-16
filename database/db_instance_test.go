@@ -5,7 +5,7 @@ import (
 	"fmt"
 )
 
-const TEST_DB_DSN_STRING = "root@tcp(0.0.0.0:3306)/employees"
+const TEST_DB_DSN_STRING = "root@tcp(0.0.0.0:3306)/test_db"
 
 func TestGetDatabaseInstance(t *testing.T) {
 	t.Run("Found", func(t *testing.T) {
@@ -17,7 +17,7 @@ func TestGetDatabaseInstance(t *testing.T) {
 
 		t.Run("Execute", func(t *testing.T) {
 			var column string
-			query := fmt.Sprintf(GetColumnsQuery, "employees", "dept_emp")
+			query := fmt.Sprintf(GetColumnsQuery, "test_db", "iris")
 			err := db.QueryRow(query).Scan(&column)
 
 			if err != nil {
