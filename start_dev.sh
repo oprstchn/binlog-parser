@@ -11,3 +11,7 @@ echo "Starting docker..."
 docker-compose up -d
 
 echo "Started docker."
+
+#cd ..
+#echo "create Event"
+#./test_db.py

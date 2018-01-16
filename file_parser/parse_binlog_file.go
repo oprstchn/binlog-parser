@@ -4,6 +4,8 @@ import (
 	"github.com/golang/glog"
 	"github.com/oprstchn/binlog-parser/database"
 	"github.com/oprstchn/binlog-parser/parser"
+	"fmt"
+	"encoding/json"
 )
 
 type binlogParseFunc func(string) error
@@ -26,6 +28,8 @@ func parseBinlogFile(binlogFilename, dbDsn string, consumerChain parser.Consumer
 	defer db.Close()
 
 	tableMap := database.NewTableMap(db)
+	jsonBytes, _ := json.Marshal(tableMap)
+	fmt.Println("tableMap", string(jsonBytes))
 
 	glog.V(2).Info("About to parse file ...")
 
