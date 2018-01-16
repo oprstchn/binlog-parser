@@ -106,4 +106,4 @@ binlog-parser.iml
 ./data/mysql/*
 
 # .env file
-.env
+*.env
