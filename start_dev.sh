@@ -17,4 +17,4 @@ echo "Waiting MYSQL Server"
 ./wait_for_it.sh ./test_db.py
 
 echo "Copy MYSQL binlog"
-docker cp dockermysql_mysql_1:/var/log/mysql ./
+docker cp dockermysql_mysql_1:/var/log/mysql ./data
