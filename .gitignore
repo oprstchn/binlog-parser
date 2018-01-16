@@ -97,3 +97,7 @@ maxwell.txt
 # intellji
 .idea/
 binlog-parser.iml
+
+
+# binary file
+./bin/*
