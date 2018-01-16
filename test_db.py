@@ -5,7 +5,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sklearn.datasets import load_iris
 import pandas as pd
 
-URL = 'mysql+pymysql://root:@0.0.0.0/employees?charset=utf8'
+URL = 'mysql+pymysql://root:@0.0.0.0/test_db?charset=utf8'
 Base = declarative_base()
 
 

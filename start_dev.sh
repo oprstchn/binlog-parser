@@ -12,6 +12,9 @@ docker-compose up -d
 
 echo "Started docker."
 
-#cd ..
-#echo "create Event"
-#./test_db.py
+cd ..
+echo "Waiting MYSQL Server"
+./wait_for_it.sh ./test_db.py
+
+echo "Copy MYSQL binlog"
+docker cp dockermysql_mysql_1:/var/log/mysql ./
