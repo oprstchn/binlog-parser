@@ -1,4 +1,4 @@
-package binlog_parser
+package file_parser
 
 import (
 	"bytes"

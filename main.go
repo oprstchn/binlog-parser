@@ -1,4 +1,4 @@
-package binlog_parser
+package main
 
 import (
 	"flag"
@@ -8,11 +8,15 @@ import (
 	"path"
 	"strings"
 	"github.com/oprstchn/binlog-parser/parser"
+	"github.com/oprstchn/binlog-parser/file_parser"
+	_ "github.com/joho/godotenv/autoload"
 )
 
 var prettyPrintJsonFlag = flag.Bool("prettyprint", false, "Pretty print json")
 var includeTablesFlag = flag.String("include_tables", "", "comma-separated list of tables to include")
 var includeSchemasFlag = flag.String("include_schemas", "", "comma-separated list of schemas to include")
+
+var outDirFlag = flag.String("out_dir", "", "If non-empty, write log files in this directory")
 
 func main() {
 	flag.Usage = func() {
@@ -36,7 +40,7 @@ func main() {
 
 	glog.V(1).Infof("Will parse file %s", binlogFilename)
 
-	parseFunc := createBinlogParseFunc(dbDsn, consumerChainFromArgs())
+	parseFunc := file_parser.CreateBinlogParseFunc(dbDsn, consumerChainFromArgs())
 	err := parseFunc(binlogFilename)
 
 	if err != nil {
@@ -48,7 +52,20 @@ func main() {
 func consumerChainFromArgs() parser.ConsumerChain {
 	chain := parser.NewConsumerChain()
 
-	chain.CollectAsJson(os.Stdout, *prettyPrintJsonFlag)
+	stream := os.Stdout
+	defer stream.Close()
+	if *outDirFlag != "" {
+		chain.OutDir(*outDirFlag)
+		file, err := os.Create(*outDirFlag)
+		if err != nil {
+			panic(err)
+		}
+		stream = file
+	}
+
+
+	//chain.CollectAsJson(os.Stdout, *prettyPrintJsonFlag)
+	chain.CollectAsJson(stream, *prettyPrintJsonFlag)
 	glog.V(1).Infof("Pretty print JSON %s", *prettyPrintJsonFlag)
 
 	if *includeTablesFlag != "" {

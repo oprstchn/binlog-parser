@@ -12,6 +12,7 @@ type ConsumerChain struct {
 	predicates  []predicate
 	collectors  []collector
 	prettyPrint bool
+	outputDir string
 }
 
 type predicate func(message messages.Message) bool
@@ -34,6 +35,10 @@ func (c *ConsumerChain) PrettyPrint(prettyPrint bool) {
 	c.prettyPrint = prettyPrint
 }
 
+func (c *ConsumerChain) OutDir(dir string) {
+	c.outputDir = dir
+}
+
 func (c *ConsumerChain) CollectAsJson(stream io.Writer, prettyPrint bool) {
 	c.collectors = append(c.collectors, streamCollector(stream, prettyPrint))
 }
@@ -48,10 +53,10 @@ func (c *ConsumerChain) consumeMessage(message messages.Message) error {
 	}
 
 	for _, collector := range c.collectors {
-		collector_err := collector(message)
+		collectorErr := collector(message)
 
-		if collector_err != nil {
-			return collector_err
+		if collectorErr != nil {
+			return collectorErr
 		}
 	}
 

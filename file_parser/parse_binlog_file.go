@@ -1,4 +1,4 @@
-package binlog_parser
+package file_parser
 
 import (
 	"github.com/golang/glog"
@@ -8,7 +8,7 @@ import (
 
 type binlogParseFunc func(string) error
 
-func createBinlogParseFunc(dbDsn string, consumerChain parser.ConsumerChain) binlogParseFunc {
+func CreateBinlogParseFunc(dbDsn string, consumerChain parser.ConsumerChain) binlogParseFunc {
 	return func(binlogFilename string) error {
 		return parseBinlogFile(binlogFilename, dbDsn, consumerChain)
 	}
