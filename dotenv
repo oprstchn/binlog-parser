@@ -1,0 +1,2 @@
+DATA_DIR=/path/to/data
+TEST_DB_DSN=user@/db

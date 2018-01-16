@@ -10,7 +10,12 @@ import (
 	"strings"
 	"testing"
 	"github.com/oprstchn/binlog-parser/parser"
+	_ "github.com/joho/godotenv/autoload"
 )
+
+func init() {
+
+}
 
 func TestParseBinlogFile(t *testing.T) {
 	dataDir := os.Getenv("DATA_DIR")
