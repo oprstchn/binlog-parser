@@ -31,7 +31,10 @@ def main():
     engine = sa.create_engine(URL, echo=True)
 
     # create table
-    Base.metadata.create_all(engine)
+    try:
+        Base.metadata.create_all(engine)
+    except e:
+        print(e)
 
     # create session
     Session = sessionmaker(bind=engine)
@@ -41,19 +44,24 @@ def main():
     # insert dummy data
     session.add_all(dummy_data)
     session.commit()
+    session.close()
 
     # update rows
     update_row_id = [i for i in range(1, 150) if i % 2 == 1]
     for u_id in update_row_id:
-        items = session.query(Iris).filter(Iris.id==u_id).first()
+        session = Session()
+        items = session.query(Iris).filter(Iris.id == u_id).first()
         items.label = 3
         session.commit()
+        session.close()
 
     # delete rows
     delete_row_id = [i for i in range(1, 150) if i % 2 == 0]
     for d_id in delete_row_id:
-        items = session.query(Iris).filter(Iris.id==d_id).delete()
+        session = Session()
+        session.query(Iris).filter(Iris.id == d_id).delete()
         session.commit()
+        session.close()
 
 
 def create_dummy_data():

@@ -1,0 +1,5 @@
+[mysqld]
+log-bin=/var/log/mysql/bin-log
+#binlog_format = ROW
+binlog_format = STATEMENT
+server-id=1

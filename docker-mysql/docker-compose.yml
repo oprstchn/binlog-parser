@@ -1,13 +1,28 @@
 version: '3.1'
 services:
-  mysql:
+  master:
     build:
       context: .
-      dockerfile: DockerFile.mysql
+      dockerfile: DockerFile.master
     environment:
       - MYSQL_ALLOW_EMPTY_PASSWORD=1
     ports:
       - '3306:3306'
+
+  slave:
+    build:
+      context: .
+      dockerfile: DockerFile.slave
+    depends_on:
+      - master
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=1
+      - MYSQL_MASTER_SERVER=master
+      - MYSQL_MASTER_WAIT_TIME=5
+    links:
+      - master
+    ports:
+      - "13306:3306"
 #    volumes:
-#      - "./my.cnf:/etc/mysql/conf.d/my.cnf"
+#      - "./master.cnf:/etc/mysql/conf.d/my.cnf"
 #      - "./init_mysql:/docker-entrypoint-initdb.d"
