@@ -100,12 +100,12 @@ binlog-parser.iml
 
 
 # binary file
-./bin/*
+# ./bin/*
 
 # docker mysql binlog
-./data/mysql/*
-./data/binlog/*
-./data/relay/*
+data/mysql/*
+data/binlog/*
+data/relay/*
 
 # .env file
 *.env
