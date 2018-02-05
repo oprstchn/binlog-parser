@@ -104,6 +104,8 @@ binlog-parser.iml
 
 # docker mysql binlog
 ./data/mysql/*
+./data/binlog/*
+./data/relay/*
 
 # .env file
 *.env
