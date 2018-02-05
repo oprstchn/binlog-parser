@@ -89,7 +89,7 @@ Temporary Items
 
 ###
 
-bin/
+# bin/
 pkg/
 maxwell.txt
 
